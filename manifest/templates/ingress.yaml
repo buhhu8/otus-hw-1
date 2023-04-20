@@ -4,6 +4,7 @@ metadata:
   name: otus-hw2-ingress
   namespace: default
 spec:
+  ingressClassName: nginx
   rules:
   - host: arch.homework
     http:

@@ -1,2 +1,21 @@
-server:
-  port: 8000
+server.port: ${app.server.port:5555}
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${app.datasource.url:jdbc:postgresql://localhost:5434/postgres}
+    username: ${app.datasource.username:buh}
+    password: ${app.datasource.password:0280829}
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate.format_sql: true
+#      hibernate.default_schema: otus
+      hibernate.query.in_clause_parameter_padding: true
+      hibernate.query.plan_cache_max_size: 32
+      hibernate.query.plan_parameter_metadata_max_size: 128
+      hibernate.criteria.literal_handling_mode: bind

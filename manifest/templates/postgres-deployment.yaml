@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment # Create a deployment
+metadata:
+  name: postgres # Set the name of the deployment
+spec:
+  replicas: 1 # Set 3 deployment replicas
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:12.10 # Docker image
+          imagePullPolicy: "IfNotPresent"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh","-c","sleep 20 && PGPASSWORD=12345678 psql -w -d postgres -U postgres -c ' CREATE TABLE public.person (
+        id UUID NOT NULL,
+        user_name varchar NULL,
+        first_name varchar NULL,
+        last_name varchar NULL,
+        email varchar NULL,
+        phone varchar NULL,
+        CONSTRAINT person_pk PRIMARY KEY (id)
+        );'"]
+          ports:
+            - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdata
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: password
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: username
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: db
+      volumes:
+        - name: postgresdata
+          persistentVolumeClaim:
+            claimName: postgres-volume-claim
