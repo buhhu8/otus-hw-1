@@ -19,8 +19,8 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh","-c","sleep 20 && PGPASSWORD=12345678 psql -w -d postgres -U postgres -c ' CREATE TABLE public.person (
-        id UUID NOT NULL,
+                command: ["/bin/sh","-c","sleep 20 && PGPASSWORD=12345678 psql -w -d postgres -U postgres -c ' CREATE TABLE IF NOT EXISTS public.person (
+        id int NOT NULL GENERATED ALWAYS AS IDENTITY,
         user_name varchar NULL,
         first_name varchar NULL,
         last_name varchar NULL,

@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: otus-hw2-ingress
   namespace: default
+#  annotations:
+#    / use the shared ingress-nginx
+#    kubernetes.io/ingress.class: "nginx-otus"
 spec:
   ingressClassName: nginx
   rules:

@@ -1,28 +1,6 @@
 replicaCount: 2
 service:
-  name: otus-hw2
-  type: ClusterIP
-  port: 8000
-
-ingress:
-  enabled: true
-  className: ""
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-  hosts:
-    - host: arch.homework
-      paths:
-        - path: /
-          pathType: Prefix
-
-autoscaling:
-  enabled: false
-
-serviceAccount:
-  create: false
-
-postgresql:
-  auth:
-    username: hw4user
-    password: hw4pass
-    database: hw4db
+  app:
+    name: otus-hw2
+    type: ClusterIP
+    port: 8000

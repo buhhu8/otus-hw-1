@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,18 +22,18 @@ public class PersonService {
     }
 
     public PersonDto getPersonById(String personId) {
-        var person = personRepository.findById(UUID.fromString(personId)).orElse(new Person());
+        var person = personRepository.findById(Integer.parseInt(personId)).orElseThrow(RuntimeException::new);
         return modelMapper.map(person, PersonDto.class);
     }
 
     @Transactional
     public void deletePerson(String personId) {
-        personRepository.delete(personRepository.getReferenceById(UUID.fromString(personId)));
+        personRepository.delete(personRepository.getReferenceById(Integer.parseInt(personId)));
     }
 
     @Transactional
     public void updatePerson(String personId, PersonDto personDto) {
-        var person = personRepository.getReferenceById(UUID.fromString(personId));
+        var person = personRepository.getReferenceById(Integer.parseInt(personId));
         person.setFirstName(personDto.getFirstName());
         person.setLastName(personDto.getLastName());
         person.setPhone(personDto.getPhone());

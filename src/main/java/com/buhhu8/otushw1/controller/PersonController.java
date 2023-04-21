@@ -14,7 +14,7 @@ public class PersonController {
     private final PersonService personService;
 
     @PostMapping
-    public ResponseEntity<String> createPerson(@RequestBody PersonDto personDto){
+    public ResponseEntity<String> createPerson(@RequestBody PersonDto personDto) {
         personService.createPerson(personDto);
         return ResponseEntity.ok().body("successful operation");
     }
@@ -25,13 +25,13 @@ public class PersonController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deletePerson(@PathVariable String userId){
+    public ResponseEntity<String> deletePerson(@PathVariable String userId) {
         personService.deletePerson(userId);
         return ResponseEntity.ok().body("user deleted");
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<String> updatePerson(@PathVariable String userId, @RequestBody PersonDto personDto){
+    public ResponseEntity<String> updatePerson(@PathVariable String userId, @RequestBody PersonDto personDto) {
         personService.updatePerson(userId, personDto);
         return ResponseEntity.ok().body(String.format("Update user with %s supplied", userId));
     }
