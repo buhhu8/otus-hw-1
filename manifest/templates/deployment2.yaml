@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otus-hw2-deploy4
+  namespace: default
+  labels:
+    app: otus-hw4
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: otus-hw4
+  template:
+    metadata:
+      labels:
+        app: otus-hw4
+    spec:
+      containers:
+        - name: otus-hw4
+          image: buhhu8/otus-hw-4:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: otus-hw2-config-map
+          env:
+            - name: app.datasource.username
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key:  username
+            - name: app.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret
+                  key: password
