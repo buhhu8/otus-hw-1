@@ -1,11 +1,3 @@
-Создать минимальный сервис, который
+istioctl install
+minikube tunnel
 
-отвечает на порту 8000
-имеет http-метод
-GET /health/
-RESPONSE: {"status": "OK"}
-Cобрать локально образ приложения в докер.
-Запушить образ в dockerhub
-На выходе необходимо предоставить
-имя репозитория и тэг на Dockerhub
-ссылку на github c Dockerfile, либо приложить Dockerfile в ДЗ
